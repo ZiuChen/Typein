@@ -1,0 +1,56 @@
+{
+  "manifest_version": 3,
+  "name": "TypeIn",
+  "version": "0.0.1",
+  "description": "键入文字即可触达任何功能, 让一切操作变得简单且高效。",
+  "content_security_policy": {
+    "script-src": "self",
+    "object-src": "self"
+  },
+  "icons": {
+    "16": "static/img/icon.png",
+    "19": "static/img/icon.png",
+    "38": "static/img/icon.png",
+    "48": "static/img/icon.png",
+    "128": "static/img/icon.png"
+  },
+  "action": {
+    "default_icon": "static/img/icon.png",
+    "default_title": "助手",
+    "default_popup": "popup.html"
+  },
+  "options_page": "option.html",
+  "background": {
+    "service_worker": "background.main.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "css": [],
+      "js": ["content.main.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "host_permissions": ["*://*/*"],
+  "web_accessible_resources": [
+    {
+      "resources": ["static/*"],
+      "matches": ["*://*/*"]
+    }
+  ],
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
+    "contextMenus",
+    "webRequest",
+    "tabs",
+    "activeTab",
+    "notifications",
+    "storage",
+    "unlimitedStorage",
+    "downloads",
+    "cookies",
+    "management",
+    "webNavigation"
+  ]
+}
