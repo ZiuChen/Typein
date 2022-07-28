@@ -1,5 +1,7 @@
 import { ref, watchEffect } from 'vue'
-import type { ITypeInAction } from '@/types'
+import { useDefaultActionList } from './useDefaultActionList'
+import { tableList, initTableList } from './useItemList'
+import type { ITypeInAction, IMsgReq, TMsgRes } from '@/types'
 
 const initActions = (list: ITypeInAction[]) => {
   for (const action of list) {
@@ -25,48 +27,12 @@ const initActions = (list: ITypeInAction[]) => {
 }
 
 const getActionStore: () => ITypeInAction[] = () => {
-  const store: ITypeInAction[] = [
-    {
-      name: 'Microsoft',
-      match: { type: 'over', value: 'ms' },
-      icon: 'icon',
-      description: '打开Microsoft Edge 浏览器开拓者大赛官网'
-    },
-    {
-      name: '搜索历史记录',
-      match: { type: 'over' },
-      icon: 'icon',
-      description: '在浏览器历史记录中搜索'
-    },
-    {
-      name: '搜索书签',
-      match: { type: 'over' },
-      icon: 'icon',
-      description: '在浏览器书签中搜索'
-    },
-    {
-      name: '翻译',
-      match: { type: 'over' },
-      icon: 'icon',
-      description: '使用Bing Micosoft Translator翻译'
-    },
-    {
-      name: '计算',
-      match: { type: 'regex', value: /^(?:\(*-?\d+(\.\d+)?\)* ?[+\-*/%^] ?)+\(*-?\d+(\.\d+)?\)*$/ },
-      icon: 'icon',
-      description: '计算结果'
-    },
-    {
-      name: 'Bing搜索',
-      match: { type: 'over' },
-      icon: 'icon',
-      description: '使用Micosoft Bing搜索'
-    }
-  ]
+  const store = useDefaultActionList()
   return initActions(store)
 }
 
 const actionFilter = (val: string, list: ITypeInAction[]) => {
+  // filterValue与action.match匹配 筛选action
   const filteredList = list.filter((action) => {
     const { match } = action
     if (match.type === 'over') {
@@ -86,16 +52,18 @@ const actionFilter = (val: string, list: ITypeInAction[]) => {
 
 const getActiveAction = (list: ITypeInAction[]) => {
   const action = list.find((action) => action.isActive === true)
-  const isUndefined = action === undefined
-  const index = isUndefined ? -1 : list.indexOf(action)
+  const index = action === undefined ? -1 : list.indexOf(action)
   const length = list.length
   return { action, index, length }
 }
 
 const toggleActiveAction = (list: ITypeInAction[], type: 'up' | 'down') => {
   const { action, index, length } = getActiveAction(list)
+  if (length === 0) return list
+  const isOnly = length === 1
   const isFirst = index === 0
   const isLast = index === length - 1
+  if (isOnly) return list
   if (type === 'up') {
     if (isFirst) return list
     else {
@@ -113,16 +81,38 @@ const toggleActiveAction = (list: ITypeInAction[], type: 'up' | 'down') => {
   }
 }
 
-const activateAction = (list: ITypeInAction[], payload: string) => {
-  const { action, index, length } = getActiveAction(list)
-  console.log(action, payload)
-}
-
 const filterValue = ref('')
 const actionList = ref<ITypeInAction[]>()
-watchEffect(() => (actionList.value = actionFilter(filterValue.value, getActionStore())))
+
+// 每次输入框内的值发生改变, 都会触发此函数, 更新actionList的值
+const stopHandler = watchEffect(() => {
+  actionList.value = actionFilter(filterValue.value, getActionStore())
+  tableList.value = []
+})
+
+const activateAction = (list: ITypeInAction[], filterValue: string) => {
+  const { action } = getActiveAction(list)
+  chrome.runtime
+    .sendMessage({
+      type: 'action-activate',
+      payload: {
+        action,
+        filterValue
+      }
+    } as IMsgReq)
+    .then((res: TMsgRes) => {
+      if (res) {
+        console.log(res)
+        tableList.value = initTableList(res.list)
+        actionList.value = []
+        // stopHandler() // 停止主输入框的列表更新监听
+        // actionList.value = initTableList(res.list)
+      }
+    })
+}
 
 const handleActionListKeyDown = (ev: KeyboardEvent) => {
+  // 在input有焦点的情况下响应键盘事件
   const { key } = ev
   const isActivate = key === 'ArrowRight' || key === 'Enter' || key === 'NumpadEnter'
   if (isActivate) activateAction(actionList.value!, filterValue.value)
@@ -132,10 +122,13 @@ const handleActionListKeyDown = (ev: KeyboardEvent) => {
 }
 
 const handleActionListMouseOver = (ev: MouseEvent, action: ITypeInAction) => {
-  const { index } = getActiveAction(actionList.value!)
+  // 改变当前isActive的Action
+  const { index, length } = getActiveAction(actionList.value!)
   const targetIndex = actionList.value!.indexOf(action)
-  actionList.value![index].isActive = false
-  actionList.value![targetIndex].isActive = true
+  if (length > 1) {
+    actionList.value![index].isActive = false
+    actionList.value![targetIndex].isActive = true
+  }
 }
 
 const handleActionClick = (ev: MouseEvent) => {
@@ -145,6 +138,7 @@ const handleActionClick = (ev: MouseEvent) => {
 export {
   filterValue,
   actionList,
+  tableList,
   handleActionListKeyDown,
   handleActionListMouseOver,
   handleActionClick

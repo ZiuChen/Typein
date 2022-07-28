@@ -44,6 +44,7 @@
     "contextMenus",
     "webRequest",
     "tabs",
+    "history",
     "activeTab",
     "notifications",
     "storage",

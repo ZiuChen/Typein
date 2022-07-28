@@ -1,39 +1,64 @@
-import { axios } from '@/api/useAxios'
-//调用chrome事件
-function chromeEvent(
-  request: { funName: any; pramas: any },
-  sender: any,
-  callback: (arg0: any[]) => any
-) {
-  let { funName, pramas } = request
-  let funCode = funName.split('.')
-  let chromeFun = chrome
-  const chromeCallback = (...arr: any[]) => callback(arr)
-  funCode.forEach((item: string, index: number) => {
-    if (typeof chromeFun[item] !== 'undefined')
-      if (index + 1 === funCode.length) {
-        //最后一个参数
-        if (typeof chromeFun[item] === 'function') {
-          let callbackindex = pramas.findIndex(
-            (item: any) => typeof item === 'object' && 'callback' in item && item['callback']
-          )
-          if (callbackindex != -1) pramas[callbackindex] = chromeCallback
-          chromeFun[item](...pramas)
-        } else throw new Error('未找到对应的chrome方法')
-      } else {
-        chromeFun = chromeFun[item]
+import { calc } from './func'
+import type { IMsgReq, TMsgRes, ITableListItem } from '@/types'
+
+chrome.runtime.onMessage.addListener(
+  ({ type, payload }: IMsgReq, sender, sendResponse: (res: TMsgRes) => void) => {
+    const { action, filterValue } = payload
+    if (type === 'action-activate') {
+      switch (action.action) {
+        case 'caculate':
+          const result = calc(filterValue)
+          sendResponse({
+            queryValue: '',
+            list: [
+              {
+                name: `${filterValue}=${result}`,
+                description: '计算结果',
+                icon: 'caculate',
+                action: 'copy'
+              }
+            ]
+          })
+          break
+        case 'open-url':
+          switch (action.name) {
+            case 'Microsoft':
+              const url = 'https://edgecontest.microsoft.com/index.html'
+              chrome.tabs.create({ url })
+              break
+          }
+          break
+        case 'search-query':
+          switch (action.name) {
+            case 'Bing搜索':
+              const url = 'https://www.bing.com/search?q=' + filterValue
+              chrome.tabs.create({ url })
+              break
+          }
+          break
+        case 'search-bookmark':
+          break
+        case 'search-history':
+          chrome.history.search({ text: filterValue }).then((history) => {
+            const list: ITableListItem[] = []
+            history.forEach(({ title, url }) => {
+              list.push({
+                name: title ?? '',
+                icon: 'bookmark',
+                description: url ?? '',
+                action: 'open-url'
+              })
+            })
+            sendResponse({
+              list,
+              queryValue: ''
+            })
+          })
+          return true
+          break
+        case 'translate-bing':
+          break
       }
-  })
-}
-chrome.runtime.onMessage.addListener(function (request: any, sender: any, sendResponse: any) {
-  switch (request.funType) {
-    case 'chrome': //代理执行chrome方法
-      chromeEvent(request, sender, sendResponse)
-      break
-    case 'axios': //代理执行chrome方法
-      axios(request, sender, sendResponse)
-      break
+    }
   }
-  //处理异步响应
-  return true
-})
+)

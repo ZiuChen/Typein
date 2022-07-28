@@ -1,0 +1,35 @@
+#typein-list {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 0px 0px 10px 10px;
+  max-height: 500px;
+  overflow: auto;
+  .typein-action {
+    display: flex;
+    height: 55px;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    &.typein-action-active {
+      background-color: #dfe3e7;
+      transition: background-color 0.1s;
+    }
+    .icon {
+      height: 30px;
+      width: 30px;
+      padding: 5px;
+      background-repeat: round;
+    }
+    .action-info {
+      margin-left: 10px;
+      .name {
+        font-size: 1.1em;
+      }
+      .description {
+        font-size: 0.8em;
+        color: #979ca1;
+      }
+    }
+  }
+}

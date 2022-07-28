@@ -1,40 +1,32 @@
 <template>
   <div id="typein-app">
     <div id="typein-search">
-      <input
-        v-model="filterValue"
-        @keydown="handleActionListKeyDown"
-        type="text"
-        placeholder="TypeIn."
-      />
+      <input v-model="filterValue" @keydown="handleKeyDown" type="text" placeholder="TypeIn" />
     </div>
     <div id="typein-list">
-      <div
-        v-for="action of actionList"
-        @mouseover="handleActionListMouseOver($event, action)"
-        @click="handleActionClick"
-        class="typein-action"
-        :class="{ 'typein-action-active': action.isActive }"
-      >
-        <img class="icon" :src="getIconPath(action)" />
-        <div class="action-info">
-          <div class="name">{{ action.name }}</div>
-          <div class="description">{{ action.description }}</div>
-        </div>
-      </div>
+      <template v-for="action of actionList">
+        <TypeinAction :action="action" />
+      </template>
+      <template v-for="item of tableList">
+        <TypeinItem :item="item" />
+      </template>
     </div>
   </div>
 </template>
 <script setup lang="ts">
+import TypeinAction from './cpns/TypeInAction.vue'
+import TypeinItem from './cpns/TypeinItem.vue'
 import {
   filterValue,
   actionList,
   handleActionListKeyDown,
-  handleActionListMouseOver,
-  handleActionClick
+  tableList,
+  handleItemListKeyDown
 } from '@/hooks'
-
-const getIconPath = (action: any) => chrome.runtime.getURL(`static/img/${action.icon}.svg`)
+const handleKeyDown = (ev: KeyboardEvent) => {
+  handleActionListKeyDown(ev)
+  handleItemListKeyDown(ev)
+}
 </script>
 <style lang="less" scoped>
 @import '@/style/index.less';
