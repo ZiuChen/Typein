@@ -90,9 +90,14 @@ chrome.runtime.onMessage.addListener(
       // from tableList
       const { action: aName, data } = action as unknown as ITableListItem
       switch (aName) {
-        // case 'copy':
-        //   copyText(data)
-        //   break
+        case 'copy':
+          chrome.notifications.create('', {
+            type: 'basic',
+            title: 'TypeIn.',
+            message: '计算结果已复制',
+            iconUrl: chrome.runtime.getURL('static/img/icon.png')
+          })
+          break
         case 'open-url':
           chrome.tabs.create({ url: data })
           break

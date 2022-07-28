@@ -28,6 +28,7 @@ const getActiveItem = (list: ITableListItem[]) => {
 const activateItem = (list: ITableListItem[]) => {
   const { item } = getActiveItem(list)
   if (item?.action === 'copy') {
+    // 处理action为copy需要使用document对象 特殊处理
     copyText(item.data)
   }
   chrome.runtime.sendMessage({
