@@ -105,3 +105,23 @@ chrome.runtime.onMessage.addListener(
     }
   }
 )
+
+const getCurrentTab = async () => {
+  const queryOptions = { active: true, currentWindow: true }
+  const [tab] = await chrome.tabs.query(queryOptions)
+  return tab
+}
+
+chrome.commands.onCommand.addListener((command) => {
+  if (command === 'open-typein') {
+    getCurrentTab().then((response: any) => {
+      if (!response.url.includes('chrome://') && !response.url.includes('chrome.google.com')) {
+        chrome.tabs.sendMessage(response.id, { request: 'open-typein' })
+      } else {
+        chrome.tabs.create({
+          url: './newtab.html'
+        })
+      }
+    })
+  }
+})

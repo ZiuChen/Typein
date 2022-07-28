@@ -11,7 +11,12 @@
         <TypeinItem :item="item" />
       </template>
     </div>
+    <div id="typein-status" v-if="tableList?.length !== 0">
+      <div class="count">{{ tableList?.length }} results.</div>
+      <div class="tips"></div>
+    </div>
   </div>
+  <div id="typein-overlay"></div>
 </template>
 <script setup lang="ts">
 import TypeinAction from './cpns/TypeInAction.vue'

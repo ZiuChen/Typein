@@ -16,8 +16,17 @@
   },
   "action": {
     "default_icon": "static/img/icon.png",
-    "default_title": "助手",
+    "default_title": "TypeIn",
     "default_popup": "popup.html"
+  },
+  "commands": {
+    "open-typein": {
+      "suggested_key": {
+        "default": "Ctrl+Space",
+        "mac": "Command+Space"
+      },
+      "description": "打开Typein窗口"
+    }
   },
   "options_page": "option.html",
   "background": {
@@ -45,6 +54,7 @@
     "webRequest",
     "tabs",
     "history",
+    "commands",
     "bookmarks",
     "activeTab",
     "notifications",

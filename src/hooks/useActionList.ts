@@ -111,7 +111,7 @@ const activateAction = (list: ITypeInAction[], filterValue: string) => {
 const handleActionListKeyDown = (ev: KeyboardEvent) => {
   // 在input有焦点的情况下响应键盘事件
   const { key } = ev
-  const isActivate = key === 'ArrowRight' || key === 'Enter' || key === 'NumpadEnter'
+  const isActivate = key === 'Enter' || key === 'NumpadEnter' // key === 'ArrowRight' ||
   if (isActivate) activateAction(actionList.value!, filterValue.value)
   else if (key === 'ArrowUp') toggleActiveAction(actionList.value!, 'up')
   else if (key === 'ArrowDown') toggleActiveAction(actionList.value!, 'down')
