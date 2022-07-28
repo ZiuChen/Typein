@@ -27,16 +27,17 @@ export interface ITypeInAction extends ICommonItem {
     | 'caculate'
 }
 
-export interface IMsgReq {
-  type: 'action-activate'
-  payload: {
-    action: ITypeInAction
-    filterValue: string
-  }
-}
-
 export interface ITableListItem extends ICommonItem {
   action: 'copy' | 'open-url'
+  data: any
+}
+
+export interface IMsgReq {
+  type: 'action-activate' | 'item-activate'
+  payload: {
+    action: ITypeInAction | ITableListItem
+    filterValue?: string
+  }
 }
 
 export type TMsgRes =

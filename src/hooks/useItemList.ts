@@ -1,5 +1,6 @@
 import { ref } from 'vue'
-import type { ITableListItem } from '@/types'
+import { copyText } from '@/utils'
+import type { ITableListItem, IMsgReq } from '@/types'
 
 const tableList = ref<ITableListItem[]>()
 
@@ -26,7 +27,15 @@ const getActiveItem = (list: ITableListItem[]) => {
 
 const activateItem = (list: ITableListItem[]) => {
   const { item } = getActiveItem(list)
-  console.log(item)
+  if (item?.action === 'copy') {
+    copyText(item.data)
+  }
+  chrome.runtime.sendMessage({
+    type: 'item-activate',
+    payload: {
+      action: item
+    }
+  } as IMsgReq)
 }
 
 const toggleActiveItem = (list: ITableListItem[], type: 'up' | 'down') => {

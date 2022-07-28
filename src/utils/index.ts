@@ -1,3 +1,6 @@
+import { calc } from './calc'
+import { copyText } from './copyText'
+
 interface ICommonObject {
   [key: string]: any
 }
@@ -7,4 +10,4 @@ const deepCopy = (obj: ICommonObject) => {
   return JSON.parse(tmp)
 }
 
-export { deepCopy }
+export { calc, copyText, deepCopy }
