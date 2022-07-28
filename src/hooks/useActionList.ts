@@ -102,11 +102,8 @@ const activateAction = (list: ITypeInAction[], filterValue: string) => {
     } as IMsgReq)
     .then((res: TMsgRes) => {
       if (res) {
-        console.log(res)
         tableList.value = initTableList(res.list)
         actionList.value = []
-        // stopHandler() // 停止主输入框的列表更新监听
-        // actionList.value = initTableList(res.list)
       }
     })
 }

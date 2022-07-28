@@ -45,6 +45,7 @@
     "webRequest",
     "tabs",
     "history",
+    "bookmarks",
     "activeTab",
     "notifications",
     "storage",

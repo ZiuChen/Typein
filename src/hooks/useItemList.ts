@@ -70,7 +70,6 @@ const toggleActiveItem = (list: ITableListItem[], type: 'up' | 'down') => {
 
 const handleItemListKeyDown = (ev: KeyboardEvent) => {
   // 在input有焦点的情况下响应键盘事件
-  console.log(tableList.value)
   if (tableList.value?.length === 0) return
   const { key } = ev
   const isActivate = key === 'ArrowRight' || key === 'Enter' || key === 'NumpadEnter'

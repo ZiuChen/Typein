@@ -39,7 +39,30 @@ chrome.runtime.onMessage.addListener(
           }
           break
         case 'search-bookmark':
-          break
+          chrome.bookmarks.search({ query: filterValue }).then((data) => {
+            const list: ITableListItem[] = []
+            data
+              .filter((x) => x.index == 0)
+              .forEach((action, index) => {
+                if (!action.url) {
+                  data.splice(index, 1)
+                }
+              })
+            data.forEach(({ title, url }) => {
+              list.push({
+                name: title ?? '',
+                icon: 'bookmark',
+                description: url ?? '',
+                action: 'open-url',
+                data: url
+              })
+            })
+            sendResponse({
+              list,
+              queryValue: ''
+            })
+          })
+          return true
         case 'search-history':
           chrome.history
             .search({ text: filterValue!, maxResults: 0, startTime: 0 })
