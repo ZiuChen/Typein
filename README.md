@@ -12,6 +12,10 @@
 * 将功能模块化，支持用户编写`JS`代码以自定义任何功能
 * 建立社区，用户可以在社区内分享自己编写的`Action`
 
+## Tips
+
+在`backgound.js`中使用异步方法并使用`sendRequest`向`content-script`返回数据时，应当在函数外部`return true`，否则后者无法得到响应数据。
+
 ## 第三方开源项目
 
 感谢这些项目帮助我极大地提升了开发效率:
@@ -19,5 +23,7 @@
 [Vue](https://vuejs.org/)
 
 [Mathjs](https://github.com/josdejong/mathjs)
+
+[AidanWelch/google-translate-api](https://github.com/AidanWelch/google-translate-api)
 
 [vue-chrome-extension-mv3](https://github.com/choumai555/vue-chrome-extension-mv3)

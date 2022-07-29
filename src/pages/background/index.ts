@@ -1,4 +1,4 @@
-import { caculate, searchBookmarks, searchHistory, translate, capture } from './func'
+import { caculate, searchBookmarks, searchHistory, translate, muteTab, pinTab } from './func'
 import { getCurrentTab } from '@/utils'
 import type { IMsgReq, TMsgRes, ITableListItem } from '@/types'
 
@@ -21,9 +21,14 @@ chrome.runtime.onMessage.addListener(
           }
           break
         case 'search-query':
+          let url = ''
           switch (action.name) {
             case 'Bing搜索':
-              const url = 'https://www.bing.com/search?q=' + filterValue
+              url = 'https://www.bing.com/search?q=' + filterValue
+              chrome.tabs.create({ url })
+              break
+            case 'Google搜索':
+              url = 'https://www.google.com.hk/search?q=' + filterValue
               chrome.tabs.create({ url })
               break
           }
@@ -34,8 +39,17 @@ chrome.runtime.onMessage.addListener(
         case 'search-history':
           searchHistory(filterValue, sendResponse)
           return true
-        case 'scan-qrcode':
-          capture(sendResponse)
+        case 'tab-mute':
+          muteTab(true)
+          return true
+        case 'tab-unmute':
+          muteTab(false)
+          return true
+        case 'tab-pin':
+          pinTab(true)
+          return true
+        case 'tab-unpin':
+          pinTab(false)
           return true
         case 'translate-google':
           translate(filterValue!, sendResponse)

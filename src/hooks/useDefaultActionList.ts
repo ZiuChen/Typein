@@ -44,11 +44,39 @@ const useDefaultActionList: () => ITypeInAction[] = () => [
     action: 'search-query'
   },
   {
-    name: '扫描二维码',
-    match: { type: 'over', value: 'qrcode' },
-    icon: 'icon',
-    description: '截取二维码并识别',
-    action: 'scan-qrcode'
+    name: 'Google搜索',
+    match: { type: 'over' },
+    icon: 'google',
+    description: '使用Google搜索',
+    action: 'search-query'
+  },
+  {
+    name: '标签页静音',
+    match: { type: 'over', value: 'mute' },
+    icon: 'volume-off',
+    description: '将当前标签页静音',
+    action: 'tab-mute'
+  },
+  {
+    name: '标签页取消静音',
+    match: { type: 'over', value: 'unmute' },
+    icon: 'volume-high',
+    description: '将当前标签页取消静音',
+    action: 'tab-unmute'
+  },
+  {
+    name: '固定标签页',
+    match: { type: 'over', value: 'pin' },
+    icon: 'pin',
+    description: '将当前标签页固定',
+    action: 'tab-pin'
+  },
+  {
+    name: '取消固定标签页',
+    match: { type: 'over', value: 'unpin' },
+    icon: 'pin-off',
+    description: '当前标签页取消固定',
+    action: 'tab-unpin'
   }
 ]
 

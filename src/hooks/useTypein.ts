@@ -19,11 +19,13 @@ const open = () => {
 
 const addListeners = () => {
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    const { request } = message
+    const { request, payload } = message
     if (request == 'open-typein') {
       isOpen.value ? close() : open()
     } else if (request === 'close-typein') {
       close()
+    } else if (request === 'copy-text') {
+      console.log(payload)
     } else {
       console.log(message)
     }

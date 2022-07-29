@@ -25,7 +25,10 @@ export interface ITypeInAction extends ICommonItem {
     | 'translate-google'
     | 'search-query'
     | 'caculate'
-    | 'scan-qrcode'
+    | 'tab-mute'
+    | 'tab-unmute'
+    | 'tab-pin'
+    | 'tab-unpin'
 }
 
 export interface ITableListItem extends ICommonItem {
