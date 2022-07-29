@@ -7,10 +7,4 @@
 import { ref } from 'vue'
 const msg = ref('')
 </script>
-<style lang="less" scoped>
-@import '@/style/index.less';
-.chrome_container {
-  width: 300px;
-  background-color: white;
-}
-</style>
+<style lang="less" scoped></style>
