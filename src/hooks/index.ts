@@ -12,7 +12,7 @@ import {
   handleTableListMouseOver,
   handleItemClick
 } from './useItemList'
-import { useChrome } from './useChrome'
+import { isOpen, addListeners, close, open } from './useTypein'
 
 export {
   filterValue,
@@ -25,5 +25,8 @@ export {
   handleItemListKeyDown,
   handleTableListMouseOver,
   handleItemClick,
-  useChrome
+  isOpen,
+  addListeners,
+  close,
+  open
 }

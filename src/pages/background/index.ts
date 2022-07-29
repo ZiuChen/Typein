@@ -1,26 +1,15 @@
-import { calc } from '@/utils'
+import { caculate, searchBookmarks, searchHistory } from './func'
 import type { IMsgReq, TMsgRes, ITableListItem } from '@/types'
 
 chrome.runtime.onMessage.addListener(
   ({ type, payload }: IMsgReq, sender, sendResponse: (res: TMsgRes) => void) => {
+    console.log('onMessage: ' + type + JSON.stringify(payload))
     const { action, filterValue } = payload
     if (type === 'action-activate') {
       // from actionList
       switch (action.action) {
         case 'caculate':
-          const result = calc(filterValue!)
-          sendResponse({
-            queryValue: '',
-            list: [
-              {
-                name: `${filterValue}=${result}`,
-                description: '计算结果',
-                icon: 'caculate',
-                action: 'copy',
-                data: result
-              }
-            ]
-          })
+          caculate(filterValue, sendResponse)
           break
         case 'open-url':
           switch (action.name) {
@@ -39,49 +28,10 @@ chrome.runtime.onMessage.addListener(
           }
           break
         case 'search-bookmark':
-          chrome.bookmarks.search({ query: filterValue }).then((data) => {
-            const list: ITableListItem[] = []
-            data
-              .filter((x) => x.index == 0)
-              .forEach((action, index) => {
-                if (!action.url) {
-                  data.splice(index, 1)
-                }
-              })
-            data.forEach(({ title, url }) => {
-              list.push({
-                name: title ?? '',
-                icon: 'bookmark',
-                description: url ?? '',
-                action: 'open-url',
-                data: url
-              })
-            })
-            sendResponse({
-              list,
-              queryValue: ''
-            })
-          })
+          searchBookmarks(filterValue, sendResponse)
           return true
         case 'search-history':
-          chrome.history
-            .search({ text: filterValue!, maxResults: 0, startTime: 0 })
-            .then((history) => {
-              const list: ITableListItem[] = []
-              history.forEach(({ title, url }) => {
-                list.push({
-                  name: title ?? '',
-                  icon: 'bookmark',
-                  description: url ?? '',
-                  action: 'open-url',
-                  data: url
-                })
-              })
-              sendResponse({
-                list,
-                queryValue: ''
-              })
-            })
+          searchHistory(filterValue, sendResponse)
           return true
         case 'translate-bing':
           break
@@ -113,6 +63,7 @@ const getCurrentTab = async () => {
 }
 
 chrome.commands.onCommand.addListener((command) => {
+  console.log('onCommand: ' + command)
   if (command === 'open-typein') {
     getCurrentTab().then((response: any) => {
       if (!response.url.includes('chrome://') && !response.url.includes('chrome.google.com')) {

@@ -51,9 +51,8 @@ const toggleActiveItem = (list: ITableListItem[], type: 'up' | 'down') => {
     else {
       list[index].isActive = false
       list[index - 1].isActive = true
-      document
-        .querySelector('.typein-action-active')
-        ?.scrollIntoView({ block: 'nearest', inline: 'nearest' })
+      const activeNode = document.querySelector('.typein-action-active')
+      activeNode?.previousElementSibling?.scrollIntoView({ block: 'nearest', inline: 'nearest' })
       return list
     }
   } else {

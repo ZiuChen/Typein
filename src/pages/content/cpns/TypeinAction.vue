@@ -5,7 +5,7 @@
     @click="handleActionClick"
     :class="{ 'typein-action-active': action?.isActive }"
   >
-    <img class="icon" :src="getIconPath(action)" />
+    <img class="typein-icon" :src="getIconPath(action)" />
     <div class="action-info">
       <div class="name">{{ action.name }}</div>
       <div class="description">{{ action.description }}</div>
