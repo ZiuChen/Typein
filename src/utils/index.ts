@@ -1,13 +1,6 @@
 import { calc } from './calc'
 import { copyText } from './copyText'
+import { deepCopy } from './deepCopy'
+import { getCurrentTab } from './getCurrentTab'
 
-interface ICommonObject {
-  [key: string]: any
-}
-
-const deepCopy = (obj: ICommonObject) => {
-  const tmp = JSON.stringify(obj)
-  return JSON.parse(tmp)
-}
-
-export { calc, copyText, deepCopy }
+export { calc, copyText, deepCopy, getCurrentTab }

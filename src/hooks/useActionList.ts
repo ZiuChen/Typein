@@ -1,6 +1,7 @@
 import { ref, watchEffect } from 'vue'
 import { useDefaultActionList } from './useDefaultActionList'
 import { tableList, initTableList } from './useItemList'
+import { close } from './useTypein'
 import type { ITypeInAction, IMsgReq, TMsgRes } from '@/types'
 
 const initActions = (list: ITypeInAction[]) => {

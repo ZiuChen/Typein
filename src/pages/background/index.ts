@@ -1,4 +1,5 @@
-import { caculate, searchBookmarks, searchHistory } from './func'
+import { caculate, searchBookmarks, searchHistory, translate, capture } from './func'
+import { getCurrentTab } from '@/utils'
 import type { IMsgReq, TMsgRes, ITableListItem } from '@/types'
 
 chrome.runtime.onMessage.addListener(
@@ -33,20 +34,28 @@ chrome.runtime.onMessage.addListener(
         case 'search-history':
           searchHistory(filterValue, sendResponse)
           return true
-        case 'translate-bing':
-          break
+        case 'scan-qrcode':
+          capture(sendResponse)
+          return true
+        case 'translate-google':
+          translate(filterValue!, sendResponse)
+          return true
       }
     } else {
       // from tableList
       const { action: aName, data } = action as unknown as ITableListItem
       switch (aName) {
         case 'copy':
-          chrome.notifications.create('', {
-            type: 'basic',
-            title: 'TypeIn.',
-            message: '计算结果已复制',
-            iconUrl: chrome.runtime.getURL('static/img/icon.png')
+          getCurrentTab().then((response: any) => {
+            chrome.tabs.sendMessage(response.id, { request: 'close-typein' })
           })
+          // TODO: add optional setting to this
+          // chrome.notifications.create('', {
+          //   type: 'basic',
+          //   title: 'TypeIn',
+          //   message: '已复制到剪切板',
+          //   iconUrl: chrome.runtime.getURL('static/img/icon.png')
+          // })
           break
         case 'open-url':
           chrome.tabs.create({ url: data })
@@ -55,12 +64,6 @@ chrome.runtime.onMessage.addListener(
     }
   }
 )
-
-const getCurrentTab = async () => {
-  const queryOptions = { active: true, currentWindow: true }
-  const [tab] = await chrome.tabs.query(queryOptions)
-  return tab
-}
 
 chrome.commands.onCommand.addListener((command) => {
   console.log('onCommand: ' + command)

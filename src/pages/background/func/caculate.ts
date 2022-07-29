@@ -11,7 +11,7 @@ const caculate = (
     list: [
       {
         name: `${filterValue}=${result}`,
-        description: '计算结果',
+        description: '按下回车复制计算结果',
         icon: 'caculate',
         action: 'copy',
         data: result

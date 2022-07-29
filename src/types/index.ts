@@ -22,13 +22,14 @@ export interface ITypeInAction extends ICommonItem {
     | 'search-history'
     | 'search-bookmark'
     | 'open-url'
-    | 'translate-bing'
+    | 'translate-google'
     | 'search-query'
     | 'caculate'
+    | 'scan-qrcode'
 }
 
 export interface ITableListItem extends ICommonItem {
-  action: 'copy' | 'open-url'
+  action: 'copy' | 'open-url' | 'close'
   data: any
 }
 

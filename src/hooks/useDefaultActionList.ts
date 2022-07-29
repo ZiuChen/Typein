@@ -26,8 +26,8 @@ const useDefaultActionList: () => ITypeInAction[] = () => [
     name: '翻译',
     match: { type: 'over' },
     icon: 'translate',
-    description: '使用Bing Micosoft Translator翻译',
-    action: 'translate-bing'
+    description: '使用Google Translate翻译',
+    action: 'translate-google'
   },
   {
     name: '计算',
@@ -42,6 +42,13 @@ const useDefaultActionList: () => ITypeInAction[] = () => [
     icon: 'microsoft',
     description: '使用Micosoft Bing搜索',
     action: 'search-query'
+  },
+  {
+    name: '扫描二维码',
+    match: { type: 'over', value: 'qrcode' },
+    icon: 'icon',
+    description: '截取二维码并识别',
+    action: 'scan-qrcode'
   }
 ]
 

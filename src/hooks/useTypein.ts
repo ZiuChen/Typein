@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import { filterValue } from './useActionList'
 
 const isOpen = ref(false)
 
@@ -6,6 +7,7 @@ const close = () => {
   const root = document.querySelector('#typein-root') as HTMLDivElement
   root.style.display = 'none'
   isOpen.value = false
+  filterValue.value = '' // 清空输入框
 }
 
 const open = () => {
@@ -17,12 +19,13 @@ const open = () => {
 
 const addListeners = () => {
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.request == 'open-typein') {
-      if (isOpen.value) {
-        close()
-      } else {
-        open()
-      }
+    const { request } = message
+    if (request == 'open-typein') {
+      isOpen.value ? close() : open()
+    } else if (request === 'close-typein') {
+      close()
+    } else {
+      console.log(message)
     }
   })
   document.addEventListener('keydown', (ev) => {

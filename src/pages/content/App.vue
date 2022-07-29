@@ -1,7 +1,7 @@
 <template>
   <div id="typein-app">
     <div id="typein-search">
-      <input v-model="filterValue" @keydown="handleKeyDown" type="text" placeholder="TypeIn" />
+      <input v-model="filterValue" @keydown="handleKeyDown" type="text" placeholder="Hi, TypeIn" />
     </div>
     <div id="typein-list">
       <template v-for="action of actionList">
