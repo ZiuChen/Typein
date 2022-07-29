@@ -77,6 +77,13 @@ const useDefaultActionList: () => ITypeInAction[] = () => [
     icon: 'pin-off',
     description: '当前标签页取消固定',
     action: 'tab-unpin'
+  },
+  {
+    name: '刷新',
+    match: { type: 'over', value: 'reload' },
+    icon: 'reload',
+    description: '刷新当前标签页',
+    action: 'tab-reload'
   }
 ]
 

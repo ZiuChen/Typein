@@ -29,6 +29,7 @@ export interface ITypeInAction extends ICommonItem {
     | 'tab-unmute'
     | 'tab-pin'
     | 'tab-unpin'
+    | 'tab-reload'
 }
 
 export interface ITableListItem extends ICommonItem {

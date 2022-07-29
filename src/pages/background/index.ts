@@ -1,4 +1,12 @@
-import { caculate, searchBookmarks, searchHistory, translate, muteTab, pinTab } from './func'
+import {
+  caculate,
+  searchBookmarks,
+  searchHistory,
+  translate,
+  muteTab,
+  pinTab,
+  reloadTab
+} from './func'
 import { getCurrentTab } from '@/utils'
 import type { IMsgReq, TMsgRes, ITableListItem } from '@/types'
 
@@ -50,6 +58,9 @@ chrome.runtime.onMessage.addListener(
           return true
         case 'tab-unpin':
           pinTab(false)
+          return true
+        case 'tab-reload':
+          reloadTab()
           return true
         case 'translate-google':
           translate(filterValue!, sendResponse)
