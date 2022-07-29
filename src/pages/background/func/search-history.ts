@@ -11,7 +11,7 @@ const searchHistory = async (
       history.forEach(({ title, url }) => {
         list.push({
           name: title ?? '',
-          icon: 'bookmark',
+          icon: 'history',
           description: url ?? '',
           action: 'open-url',
           data: url
