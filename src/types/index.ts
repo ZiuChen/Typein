@@ -30,6 +30,7 @@ export interface ITypeInAction extends ICommonItem {
     | 'tab-pin'
     | 'tab-unpin'
     | 'tab-reload'
+    | 'tab-duplicate'
 }
 
 export interface ITableListItem extends ICommonItem {

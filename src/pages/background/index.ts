@@ -5,7 +5,8 @@ import {
   translate,
   muteTab,
   pinTab,
-  reloadTab
+  reloadTab,
+  duplicateTab
 } from './func'
 import { getCurrentTab } from '@/utils'
 import type { IMsgReq, TMsgRes, ITableListItem } from '@/types'
@@ -61,6 +62,9 @@ chrome.runtime.onMessage.addListener(
           return true
         case 'tab-reload':
           reloadTab()
+          return true
+        case 'tab-duplicate':
+          duplicateTab()
           return true
         case 'translate-google':
           translate(filterValue!, sendResponse)

@@ -84,6 +84,13 @@ const useDefaultActionList: () => ITypeInAction[] = () => [
     icon: 'reload',
     description: '刷新当前标签页',
     action: 'tab-reload'
+  },
+  {
+    name: '复制标签页',
+    match: { type: 'over', value: 'duplicate' },
+    icon: 'content-duplicate',
+    description: '复制当前标签页',
+    action: 'tab-duplicate'
   }
 ]
 

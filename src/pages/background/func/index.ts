@@ -6,6 +6,7 @@ import { muteTab } from './mute-tab'
 import { pinTab } from './pin-tab'
 import { reloadTab } from './reload-tab'
 import { typeinClose } from './typein-close'
+import { duplicateTab } from './duplicate-tab'
 
 export {
   caculate,
@@ -15,5 +16,6 @@ export {
   muteTab,
   pinTab,
   reloadTab,
-  typeinClose
+  typeinClose,
+  duplicateTab
 }
