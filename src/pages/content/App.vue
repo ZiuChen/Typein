@@ -2,7 +2,6 @@
   <div id="typein-app">
     <div id="typein-search">
       <input v-model="filterValue" @keydown="handleKeyDown" type="text" placeholder="Hi, TypeIn" />
-      <img id="typein-main-icon" :src="iconPath" draggable="false" />
     </div>
     <div id="typein-list">
       <template v-for="action of actionList">
@@ -33,7 +32,6 @@ const handleKeyDown = (ev: KeyboardEvent) => {
   handleActionListKeyDown(ev)
   handleItemListKeyDown(ev)
 }
-const iconPath = chrome.runtime.getURL(`static/img/icon.png`)
 </script>
 <style lang="less" scoped>
 @import '@/style/index.less';
