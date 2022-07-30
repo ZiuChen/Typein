@@ -2,6 +2,7 @@
   <div id="typein-app">
     <div id="typein-search">
       <input v-model="filterValue" @keydown="handleKeyDown" type="text" placeholder="Hi, TypeIn" />
+      <img id="typein-main-icon" :src="iconPath" draggable="false" />
     </div>
     <div id="typein-list">
       <template v-for="action of actionList">
@@ -12,7 +13,7 @@
       </template>
     </div>
     <div id="typein-status" v-if="tableList?.length !== 0">
-      <div class="typein-count">{{ tableList?.length }} results.</div>
+      <div class="typein-count">{{ tableList?.length }} results</div>
       <div class="typein-tips"></div>
     </div>
   </div>
@@ -32,6 +33,7 @@ const handleKeyDown = (ev: KeyboardEvent) => {
   handleActionListKeyDown(ev)
   handleItemListKeyDown(ev)
 }
+const iconPath = chrome.runtime.getURL(`static/img/icon.png`)
 </script>
 <style lang="less" scoped>
 @import '@/style/index.less';

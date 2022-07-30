@@ -7,8 +7,11 @@
   >
     <img class="typein-icon" :src="getIconPath(action)" />
     <div class="action-info">
-      <div class="name">{{ action.name }}</div>
-      <div class="description">{{ action.description }}</div>
+      <div>
+        <div class="name">{{ action.name }}</div>
+        <div class="description">{{ action.description }}</div>
+      </div>
+      <div v-if="action.match.value" class="key-word">{{ action.match.value }}</div>
     </div>
   </div>
 </template>
