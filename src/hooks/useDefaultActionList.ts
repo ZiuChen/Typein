@@ -91,6 +91,55 @@ const useDefaultActionList: () => ITypeInAction[] = () => [
     icon: 'content-duplicate',
     description: '复制当前标签页',
     action: 'tab-duplicate'
+  },
+  {
+    name: 'Photoshop',
+    match: { type: 'over', value: 'ps' },
+    icon: 'photoshop',
+    description: '打开Photoshop',
+    action: 'open-url'
+  },
+  {
+    name: 'VideoCutter',
+    match: { type: 'over', value: 'videocut' },
+    icon: 'film',
+    description: '开始视频剪辑',
+    action: 'open-url'
+  },
+  {
+    name: 'AudioEditor',
+    match: { type: 'over', value: 'audio' },
+    icon: 'music-box',
+    description: '开始音频转码',
+    action: 'open-url'
+  },
+  {
+    name: 'Apifox',
+    match: { type: 'over', value: 'apifox' },
+    icon: 'server-network',
+    description: '开始接口调试',
+    action: 'open-url'
+  },
+  {
+    name: 'Markdown',
+    match: { type: 'over', value: 'md' },
+    icon: 'markdown',
+    description: '打开Markdown编辑器',
+    action: 'open-url'
+  },
+  {
+    name: 'Ctool',
+    match: { type: 'over', value: 'ctool' },
+    icon: 'code-array',
+    description: '打开开发者工具箱',
+    action: 'open-url'
+  },
+  {
+    name: 'Excalidraw',
+    match: { type: 'over', value: 'flow' },
+    icon: 'flow-chart',
+    description: '开始绘制流程图',
+    action: 'open-url'
   }
 ]
 

@@ -6,7 +6,8 @@ import {
   muteTab,
   pinTab,
   reloadTab,
-  duplicateTab
+  duplicateTab,
+  openURL
 } from './func'
 import { getCurrentTab } from '@/utils'
 import type { IMsgReq, TMsgRes, ITableListItem } from '@/types'
@@ -18,36 +19,60 @@ chrome.runtime.onMessage.addListener(
     if (type === 'action-activate') {
       // from actionList
       switch (action.action) {
+        /* inner action */
         case 'caculate':
           caculate(filterValue, sendResponse)
           break
+        case 'translate-google':
+          translate(filterValue!, sendResponse)
+          return true
+        /* new tab related */
         case 'open-url':
           switch (action.name) {
             case 'Microsoft':
-              const url = 'https://edgecontest.microsoft.com/index.html'
-              chrome.tabs.create({ url })
+              openURL('https://edgecontest.microsoft.com/index.html')
+              break
+            case 'Photoshop':
+              openURL('https://ps.gaoding.com/')
+              break
+            case 'VideoCutter':
+              openURL('https://online-video-cutter.com/cn/')
+              break
+            case 'AudioEditor':
+              openURL('https://www.xaudiopro.com/cn/')
+              break
+            case 'Apifox':
+              openURL('https://www.apifox.cn/web/main')
+              break
+            case 'Markdown':
+              openURL('https://markdown.lovejade.cn/')
+              break
+            case 'CTool':
+              openURL('https://baiy.github.io/Ctool/tool.html')
+              break
+            case 'Excalidraw':
+              openURL('https://excalidraw.com/')
               break
           }
           break
         case 'search-query':
-          let url = ''
           switch (action.name) {
             case 'Bing搜索':
-              url = 'https://www.bing.com/search?q=' + filterValue
-              chrome.tabs.create({ url })
+              openURL('https://www.bing.com/search?q=' + filterValue)
               break
             case 'Google搜索':
-              url = 'https://www.google.com.hk/search?q=' + filterValue
-              chrome.tabs.create({ url })
+              openURL('https://www.google.com.hk/search?q=' + filterValue)
               break
           }
           break
+        /* bookmark & history */
         case 'search-bookmark':
           searchBookmarks(filterValue, sendResponse)
           return true
         case 'search-history':
           searchHistory(filterValue, sendResponse)
           return true
+        /* tab related */
         case 'tab-mute':
           muteTab(true)
           return true
@@ -66,9 +91,6 @@ chrome.runtime.onMessage.addListener(
         case 'tab-duplicate':
           duplicateTab()
           return true
-        case 'translate-google':
-          translate(filterValue!, sendResponse)
-          return true
       }
     } else {
       // from tableList
@@ -78,13 +100,6 @@ chrome.runtime.onMessage.addListener(
           getCurrentTab().then((response: any) => {
             chrome.tabs.sendMessage(response.id, { request: 'close-typein' })
           })
-          // TODO: add optional setting to this
-          // chrome.notifications.create('', {
-          //   type: 'basic',
-          //   title: 'TypeIn',
-          //   message: '已复制到剪切板',
-          //   iconUrl: chrome.runtime.getURL('static/img/icon.png')
-          // })
           break
         case 'open-url':
           chrome.tabs.create({ url: data })

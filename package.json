@@ -1,5 +1,5 @@
 {
-  "name": "chrome-extension",
+  "name": "typein",
   "license": "MIT",
   "private": true,
   "scripts": {

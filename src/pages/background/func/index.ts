@@ -7,6 +7,7 @@ import { pinTab } from './pin-tab'
 import { reloadTab } from './reload-tab'
 import { typeinClose } from './typein-close'
 import { duplicateTab } from './duplicate-tab'
+import { openURL } from './open-url'
 
 export {
   caculate,
@@ -17,5 +18,6 @@ export {
   pinTab,
   reloadTab,
   typeinClose,
-  duplicateTab
+  duplicateTab,
+  openURL
 }
