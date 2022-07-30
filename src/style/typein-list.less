@@ -1,6 +1,6 @@
 #typein-list {
   width: 100%;
-  background-color: #ffffff;
+  background-color: @bgColor;
   border-radius: 0px 0px 5px 5px;
   width: 100%;
   max-height: 500px;
@@ -12,15 +12,16 @@
     align-items: center;
     padding: 5px;
     cursor: pointer;
+    background-color: @bgColor;
     &.typein-action-active {
-      background-color: #dfe3e7;
+      background-color: @bgColorDeep;
       transition: background-color 0.2s;
       &::before {
         height: 50px;
         display: block;
         content: '';
         width: 2px;
-        background-color: #639be9;
+        background-color: @themeColor;
       }
       .typein-icon {
         height: 40px;
@@ -39,6 +40,7 @@
       justify-content: space-between;
       align-items: center;
       .name {
+        color: @textColor;
         font-size: 14px;
         max-width: 400px;
         overflow: hidden;
@@ -47,15 +49,15 @@
       }
       .description {
         font-size: 10px;
-        color: #979ca1;
+        color: @subTextColor;
         max-width: 300px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
       .key-word {
-        color: #535353;
-        background-color: #ccd2e2;
+        color: @themeBgColorDeep;
+        background-color: @themeBgColor;
         border-radius: 5px;
         font-size: 10px;
         padding: 0px 5px 2px 5px;
@@ -68,18 +70,13 @@
   }
   &::-webkit-scrollbar-track {
     border-radius: 2px;
+    background-color: @bgColorDeep;
   }
   &::-webkit-scrollbar-thumb {
-    background: #bfbfbf;
+    background: @subTextColor;
     border-radius: 2px;
   }
-  &::-webkit-scrollbar-thumb:window-inactive {
-    background: rgba(255, 0, 0, 0.4);
-  }
   &::-webkit-scrollbar-thumb:hover {
-    background: #333;
-  }
-  &::-webkit-scrollbar-corner {
-    background: #179a16;
+    background: @subTextColor;
   }
 }

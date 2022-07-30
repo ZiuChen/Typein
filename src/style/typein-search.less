@@ -5,10 +5,10 @@
   width: 100%;
   height: fit-content;
   border-radius: 5px 5px 5px 5px;
-  background-color: #ffffff;
+  background-color: @bgColor;
   &,
   input {
-    caret-color: #639be9;
+    caret-color: @themeColor;
   }
   input {
     /* normalize */
@@ -16,13 +16,14 @@
     outline: none;
     border: none;
     /* custom */
+    color: @textColor;
     height: fit-content;
     font-size: 1.5em;
     padding: 10px;
     margin: 5px 10px 5px 10px;
     width: 100%;
     &::placeholder {
-      color: #c0c0c0;
+      color: @subTextColor;
     }
   }
   #typein-main-icon {

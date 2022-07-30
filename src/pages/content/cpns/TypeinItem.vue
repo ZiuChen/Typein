@@ -7,8 +7,10 @@
   >
     <img class="typein-icon" :src="getIconPath(item)" />
     <div class="action-info">
-      <div class="name">{{ item.name }}</div>
-      <div class="description">{{ item.description }}</div>
+      <div>
+        <div class="name">{{ item.name }}</div>
+        <div class="description">{{ item.description }}</div>
+      </div>
     </div>
   </div>
 </template>
