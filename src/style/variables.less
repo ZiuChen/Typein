@@ -1,38 +1,23 @@
-@import './theme-light.less';
-@import './theme-dark.less';
-
 @overlay-bgColor: #000000;
+
+.import() {
+  @import (multiple) './typein-app.less';
+  @import (multiple) './typein-search.less';
+  @import (multiple) './typein-list.less';
+  @import (multiple) './typein-status.less';
+  @import (multiple) './typein-overlay.less';
+}
 
 @media (prefers-color-scheme: dark) {
   #typein-root {
-    @themeColor: @themeColor-dark;
-    @themeBgColor: @themeBgColor-dark;
-    @themeBgColorDeep: @themeBgColorDeep-dark;
-    @textColor: @textColor-dark;
-    @subTextColor: @subTextColor-dark;
-    @bgColor: @bgColor-dark;
-    @bgColorDeep: @bgColorDeep-dark;
-    @import (multiple) './typein-app.less';
-    @import (multiple) './typein-search.less';
-    @import (multiple) './typein-list.less';
-    @import (multiple) './typein-status.less';
-    @import (multiple) './typein-overlay.less';
+    @import (multiple) './theme-dark.less';
+    .import();
   }
 }
 
 @media (prefers-color-scheme: light) {
   #typein-root {
-    @themeColor: @themeColor-light;
-    @themeBgColor: @themeBgColor-light;
-    @themeBgColorDeep: @themeBgColorDeep-light;
-    @textColor: @textColor-light;
-    @subTextColor: @subTextColor-light;
-    @bgColor: @bgColor-light;
-    @bgColorDeep: @bgColorDeep-light;
-    @import (multiple) './typein-app.less';
-    @import (multiple) './typein-search.less';
-    @import (multiple) './typein-list.less';
-    @import (multiple) './typein-status.less';
-    @import (multiple) './typein-overlay.less';
+    @import (multiple) './theme-light.less';
+    .import();
   }
 }
