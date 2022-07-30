@@ -10,14 +10,26 @@
 
 @media (prefers-color-scheme: dark) {
   #typein-root {
-    @import (multiple) './theme-dark.less';
+    @themeColor: #14458a;
+    @themeBgColor: #2f3234;
+    @themeBgColorDeep: #a1998d;
+    @textColor: #e8e6e3;
+    @subTextColor: #a9a297;
+    @bgColor: #181a1b;
+    @bgColorDeep: #282b2d;
     .import();
   }
 }
 
 @media (prefers-color-scheme: light) {
   #typein-root {
-    @import (multiple) './theme-light.less';
+    @themeColor: #639be9;
+    @themeBgColor: #ccd2e2;
+    @themeBgColorDeep: #707070;
+    @textColor: #000000;
+    @subTextColor: #979ca1;
+    @bgColor: #ffffff;
+    @bgColorDeep: #dfe3e7;
     .import();
   }
 }
