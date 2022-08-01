@@ -1,4 +1,7 @@
-$(`<div id="typein-root"><div>`).appendTo(document.body)
+const root = document.createElement('div')
+root.id = 'typein-root'
+document.body.append(root)
+
 import { createApp } from 'vue'
 import App from './App.vue'
 import { addListeners, close } from '@/hooks'

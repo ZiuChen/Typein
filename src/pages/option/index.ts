@@ -1,8 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-let app
+
+import 'element-plus/theme-chalk/index.css'
+
 function render() {
-  app = createApp(App)
+  const app = createApp(App)
   app.mount('#option')
 }
 render()

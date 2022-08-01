@@ -1,10 +1,8 @@
 <template>
   <div id="app">
-    <h3>hello vue !</h3>
+    <TypeinOptionVue />
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
-const msg = ref('')
+import TypeinOptionVue from './cpns/TypeinOption.vue'
 </script>
-<style lang="less" scoped></style>
