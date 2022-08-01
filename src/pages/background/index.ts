@@ -110,16 +110,13 @@ chrome.runtime.onMessage.addListener(
 )
 
 chrome.commands.onCommand.addListener((command) => {
-  console.log('onCommand: ' + command)
   if (command === 'open-typein') {
     getCurrentTab().then((response: any) => {
-      if (!response.url.includes('chrome://') && !response.url.includes('chrome.google.com')) {
-        chrome.tabs.sendMessage(response.id, { request: 'open-typein' })
-      } else {
-        chrome.tabs.create({
-          url: './newtab.html'
-        })
-      }
+      chrome.tabs.sendMessage(response.id, { request: 'open-typein' })
     })
   }
+})
+
+chrome.action.onClicked.addListener((tab) => {
+  tab.id === undefined || chrome.tabs.sendMessage(tab.id!, { request: 'open-typein' })
 })

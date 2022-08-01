@@ -23,9 +23,13 @@
       "description": "打开Typein窗口"
     }
   },
+  "action": {
+    "default_title": "Start Typein"
+  },
   "background": {
     "service_worker": "background.main.js"
   },
+  "options_page": "option.html",
   "content_scripts": [
     {
       "matches": ["*://*/*"],
