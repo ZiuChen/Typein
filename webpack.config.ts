@@ -33,9 +33,6 @@ const config: Configuration = {
     },
     extensions: ['.ts', '.js', '.mjs', '.json']
   },
-  optimization: {
-    minimize: mode === 'production'
-  },
   module: {
     rules: [
       {
