@@ -14,12 +14,6 @@
 安装拓展后，在任何页面内按下 *ctrl*+*Space* 即可唤醒 *Typein*，键入文字、激活功能，享受 *Typein* 为你带来的高效率。
 
 ![](./docs/image-1.png)
-![](./docs/image-2.png)
-![](./docs/image-3.png)
-![](./docs/image-4.png)
-![](./docs/image-5.png)
-![](./docs/image-6.png)
-![](./docs/image-7.png)
 
 ## 开发计划
 
